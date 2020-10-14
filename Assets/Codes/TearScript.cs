@@ -7,11 +7,13 @@ public class TearScript : MonoBehaviour
     public GameObject[] ObjectsToSpawn;
     public PlayerMovement player;
     public float tearCooldown = 30;
-    private float startingCounter;
+    private float tearCooldownTimer = 0;
+    private float tearDuration;
+    public float tearduration = 50;
     // Start is called before the first frame update
     void Start()
     {
-        startingCounter = 0;
+         
     }
 
 
@@ -20,16 +22,19 @@ public class TearScript : MonoBehaviour
     {
         if (Input.GetKey("left") || Input.GetKey("down") || Input.GetKey("up") || Input.GetKey("right"))
         {
-            if (startingCounter == 0)
+            if (tearCooldownTimer == 0)
             {
-                startingCounter = tearCooldown;
+                tearCooldownTimer = tearCooldown;
                 GameObject tear = GameObject.Instantiate(ObjectsToSpawn[0]);
                 tear.transform.position = player.transform.position;
+                Destroy(tear, 1.0f);
             }
-            if (startingCounter > 0)
-            {
-                startingCounter--;
-            }
+            
         }
+        if (tearCooldownTimer > 0)
+        {
+            tearCooldownTimer--;
+        }
+        
     }
 }
