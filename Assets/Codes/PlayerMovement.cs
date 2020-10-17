@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
             if (cooldownForWalking == 0)
             {
                 cooldownForWalking = walkCooldown;
-                transform.position += new Vector3(input_x, input_y, 0).normalized;
+                transform.position += new Vector3(input_x, input_y, 0).normalized/10;
             }
             
 

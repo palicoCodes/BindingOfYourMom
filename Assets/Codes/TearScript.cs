@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class TearScript : MonoBehaviour
 {
-    public GameObject[] ObjectsToSpawn;
+    public GameObject tear;
     public PlayerMovement player;
-    public float tearCooldown = 30;
+    public float tearCooldown;
+    public float tearSpeed;
     private float tearCooldownTimer = 0;
     public int tearDuration;
     // Start is called before the first frame update
@@ -24,10 +25,33 @@ public class TearScript : MonoBehaviour
             if (tearCooldownTimer == 0)
             {
                 tearCooldownTimer = tearCooldown;
-                GameObject tear = GameObject.Instantiate(ObjectsToSpawn[0]);
+                //Rigidbody2D tearInstance = Instantiate(tear, transform.position, Quaternion.Euler(new Vector3(0, 0, 1))) as Rigidbody2D;
+                if (Input.GetKey("up"))
+                {
+                    GameObject tearInstance = Instantiate(tear, transform.position, Quaternion.identity);
+                    tearInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 1.0f * tearSpeed);
+                    Destroy(tearInstance, 2f);
+                }
+                else if (Input.GetKey("down"))
+                {
+                    GameObject tearInstance = Instantiate(tear, transform.position, Quaternion.identity);
+                    tearInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, -1.0f * tearSpeed);
+                    Destroy(tearInstance, 2f);
+                }
+                else if (Input.GetKey("right"))
+                    {
+                    GameObject tearInstance = Instantiate(tear, transform.position, Quaternion.identity);
+                    tearInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(1.0f * tearSpeed, 0.0f);
+                    Destroy(tearInstance, 2f);
+                }
+                else {
 
-                tear.transform.position = player.transform.position;
-                Destroy(tear,tearDuration);
+                    GameObject tearInstance = Instantiate(tear, transform.position, Quaternion.identity);
+                    tearInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(-1.0f * tearSpeed, 0.0f);
+                    Destroy(tearInstance, 2f);
+                }
+
+
             }
             
         }
