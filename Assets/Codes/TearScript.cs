@@ -8,8 +8,7 @@ public class TearScript : MonoBehaviour
     public PlayerMovement player;
     public float tearCooldown = 30;
     private float tearCooldownTimer = 0;
-    private float tearDuration;
-    public float tearduration = 50;
+    public int tearDuration;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +25,9 @@ public class TearScript : MonoBehaviour
             {
                 tearCooldownTimer = tearCooldown;
                 GameObject tear = GameObject.Instantiate(ObjectsToSpawn[0]);
+
                 tear.transform.position = player.transform.position;
-                Destroy(tear, 1.0f);
+                Destroy(tear,tearDuration);
             }
             
         }
